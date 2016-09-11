@@ -4,15 +4,15 @@ namespace Trees
 {
     public class Node
     {
-        public Node Left;
-        public Node Right;
-        public int Val;
+        private readonly Node _left;
+        private readonly Node _right;
+        private readonly int _val;
 
         public Node(int val, Node left = null, Node right = null)
         {
-            this.Val = val;
-            this.Left = left;
-            this.Right = right;
+            _val = val;
+            _left = left;
+            _right = right;
         }
 
         public SearchResult BreadthFirstSearch(int i)
@@ -23,14 +23,14 @@ namespace Trees
             while (nodesToSearch.Count != 0)
             {
                 var current = nodesToSearch.Dequeue();
-                if(current.Left != null)
-                    nodesToSearch.Enqueue(current.Left);
-                if (current.Right != null)
-                    nodesToSearch.Enqueue(current.Right);
+                if(current._left != null)
+                    nodesToSearch.Enqueue(current._left);
+                if (current._right != null)
+                    nodesToSearch.Enqueue(current._right);
 
-                traversalHistory.Add(current.Val);
+                traversalHistory.Add(current._val);
 
-                if (current.Val == i)
+                if (current._val == i)
                     return new SearchResult { Node = current, TraversalHistory = traversalHistory };
             }
             return new SearchResult {Node = null, TraversalHistory = traversalHistory};
@@ -44,14 +44,14 @@ namespace Trees
             while (nodesToSearch.Count != 0)
             {
                 var current = nodesToSearch.Pop();
-                if (current.Right != null)
-                    nodesToSearch.Push(current.Right);
-                if (current.Left != null)
-                    nodesToSearch.Push(current.Left);
+                if (current._right != null)
+                    nodesToSearch.Push(current._right);
+                if (current._left != null)
+                    nodesToSearch.Push(current._left);
 
-                traversalHistory.Add(current.Val);
+                traversalHistory.Add(current._val);
 
-                if (current.Val == i)
+                if (current._val == i)
                     return new SearchResult { Node = current, TraversalHistory = traversalHistory };
             }
             return new SearchResult { Node = null, TraversalHistory = traversalHistory };
